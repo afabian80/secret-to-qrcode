@@ -4,8 +4,6 @@ Encrypt/decrypt short text to/from qr code
 You can encrypt small texts and passwords in qr code images and print them.
 Later you can scan back and decode them.
 
-![Sample](sample.png)
-
 ## Requirements
 You need to install these pacakges:
 * gpg
@@ -16,6 +14,11 @@ For example, on Fedora 30:
 ```
 sudo dnf install gpg qrencode zbar
 ```
+
+Try to decode this image with the decode.sh script.
+Password is **password**.
+
+![Sample](secret.png)
 
 ## Encyption
 Execute encode.sh to encrypt a text into a QR code using Gnu PGP.
