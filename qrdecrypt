@@ -1,8 +1,10 @@
 #!/usr/bin/bash -eu
 
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
 read -s -p "Password: " password
 echo
 
-key=$(./stretch.py "${password}" "salt must be fix to decode")
+key=$("${SCRIPT_DIR}"/stretch.py "${password}" "salt must be fix to decode")
 
 zbarimg --quiet --raw secret.png | base64 -d | gpg -q -d --batch --passphrase "${key}" | xargs --null echo
