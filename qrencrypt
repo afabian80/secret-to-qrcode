@@ -18,7 +18,7 @@ fi
 
 password="${password1}"
 image=secret.png
-key=$("${SCRIPT_DIR}"/stretch.py "${password}" "salt must be fix to decode")
+key=$("${SCRIPT_DIR}"/stretch.py "${password}")
 
 echo "${secret}" | gpg -c --batch --passphrase "${key}" | base64 | qrencode -l H -o "${image}"
 

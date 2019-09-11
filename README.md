@@ -53,4 +53,4 @@ Your secret is safe in this image!
 ## Further details
 The password does not have to be too complex, as I use the PBKDF2 algorythm in Python to stretch the key size for the encryption. It makes brute-force attacks slower. Basically, this small addition complicated the code from one-liners to its current form. But I think it is worth the extra effort.
 
-PBKDF2 alse needs a "salt" value. This is currently a fixed string, to be able to later decode the printed QR codes. Any better idea is welcome :)
+PBKDF2 alse needs a "salt" value. This is currently a fixed random string, to be able to later decode the printed QR codes. Any better idea is welcome :)

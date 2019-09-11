@@ -5,14 +5,11 @@ import sys
 from hashlib import pbkdf2_hmac
 from binascii import hexlify
 
-assert len(sys.argv) == 3
+assert len(sys.argv) == 2
 
 password = sys.argv[1]
-salt = sys.argv[2]
+salt = "ULEL2tNC4sg9jVwNgXZCfnUdIyo="  # salt must be fix to decode QR codes
 iterations = 1000000
-
-#sys.stderr.write("password is '{}'\n".format(password))
-#sys.stderr.write("salt is '{}'\n".format(salt))
 
 password = password.encode()
 salt = salt.encode()
