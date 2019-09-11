@@ -1,14 +1,20 @@
 # secret-to-qrcode
 Encrypt/decrypt short text to/from qr code
 
-You can encrypt small texts and passwords in qr code images and print them.
-Later you can scan back and decode them.
+You can encrypt small texts (for example passwords) in qr code images and print them.
+The content is further encrypted, it will as for the encryption password.
+Later you can scan back and decode the images.
+Text content size is limited by the qr code, but a few sentences are fine.
 
 ## Requirements
-You need to install these pacakges:
+You need to install these system pacakges:
 * gpg
 * qrencode
 * zbar
+
+And these python packages (if not already installed):
+* hashlib
+* binascii
 
 For example, on Fedora 30:
 ```
@@ -21,25 +27,25 @@ Password is **password**.
 ![Sample](secret.png)
 
 ## Encyption
-Execute encode.sh to encrypt a text into a QR code using Gnu PGP.
-Type the text after the prompt.
-Enter the password in the popup window.
+Execute qrencrypt to encrypt a text into a QR code using Gnu PGP's symmetric key encryption. Type the text and the password when prompted.
 
 The encrypted text will be saved in the secret.png image.
 
 ## Decryption
-Simply execute the decode.sh script.
+Simply execute the qrdecrypt script.
 It assumes the secret.png file is there.
-It may not prompt for password if it is already cached by the OS.
+It will prompt for the password.
 
 ## Example
 
 ```
-$ ./encode.sh 
-Enter secret: what is love, baby don't hurt me
+$ ./qrencrypt
+Secret: 
+Password: 
+Password again: 
+Secret encoded and encrypted in secret.png.
 
-$ # secret is in the secret.png image
-
-$ ./decode.sh 
-what is love, baby don't hurt me
+$ ./qrdecrypt 
+Password: 
+Your secret is safe in this image!
 ```
