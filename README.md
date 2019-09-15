@@ -1,10 +1,11 @@
 # secret-to-qrcode
-Encrypt/decrypt short text to/from qr code
+Encrypt/decrypt short text to/from QR code.
 
-You can encrypt small texts (for example passwords, 2FA secrets) in qr code images and print them.
-The content is further encrypted, it will ask for the encryption password.
-Later you can scan back and decode the images.
-Text content size is limited by the qr code, but a few sentences are fine.
+You can encode small texts (for example passwords, 2FA secrets) in a password protected QR code images and print it. The program will ask for the encryption password and the secret text.
+
+Later you can decode the image file or scan back the printed code.
+
+Text content size is limited by the QR code and the amount of error correction, but a few sentences are fine (up to about 3000 characters).
 
 ## Requirements
 You need to install these system packages:
@@ -12,45 +13,35 @@ You need to install these system packages:
 * qrencode
 * zbar
 
-And these python packages (if not already installed):
-* hashlib
-* binascii
-
 For example, on Fedora 30:
 ```
 sudo dnf install gpg qrencode zbar
 ```
 
-Try to decode this image with the qrdecrypt script.
-Password is **password**.
+Try to decrypt this image. Password is **password**.
 
 ![Sample](secret.png)
 
-## Encyption
-Execute qrencrypt to encrypt a text into a QR code using Gnu PGP's symmetric key encryption. Type the text and the password when prompted.
+## Usage
+Set the following aliases in your bashrc or zshrc.
+
+```
+alias qrenc='gpg -ca --cipher-algo AES256 | qrencode -l H -o secret.png'
+alias qrdec='zbarimg -q --raw secret.png | gpg -qd'
+alias qrcam='zbarcam --raw --nodisplay -Sdisable -Sqrcode.enable | gpg -qd'
+```
 
 The encrypted text will be saved in the secret.png image.
 
-## Decryption
-Simply execute the qrdecrypt script.
-It assumes the secret.png file is next to it.
-It will prompt for the password.
-
 ## Example
+**Note**: Press ENTER then Ctrl-D to terminate secret input.
+```
+$ qrenc
+Your secret is safe in this image.
+
+$ qrdec
+Your secret is safe in this image.
+
+$ chmod 600 secret.png # just to make sure other users cannot read it
 
 ```
-$ ./qrencrypt
-Secret: 
-Password: 
-Password again: 
-Secret encoded and encrypted in secret.png.
-
-$ ./qrdecrypt 
-Password: 
-Your secret is safe in this image!
-```
-
-## Further details
-The password does not have to be too complex, as I use the PBKDF2 algorythm in Python to stretch the key size for the encryption. It makes brute-force attacks slower. Basically, this small addition complicated the code from one-liners to its current form. But I think it is worth the extra effort.
-
-PBKDF2 alse needs a "salt" value. This is currently a fixed random string, to be able to later decode the printed QR codes. Any better idea is welcome :)
