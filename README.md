@@ -1,5 +1,5 @@
 # secret-to-qrcode
-Encrypt/decrypt short text to/from QR code.
+Encrypt/decrypt short text to/from password protected QR code.
 
 You can encode small texts (for example passwords, 2FA secrets) in a password protected QR code image and print it. The program will ask for the encryption password and the secret text.
 
